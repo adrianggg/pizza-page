@@ -65,6 +65,19 @@
     }
     renderInMenu(){
       const thisProduct = this;
+
+      /* generate HTML based on template */
+      const generatedHTML = templates.menuProduct(thisProduct.data);
+      console.log('Generate html: ',generatedHTML);
+
+      /* create element using utils.createElementFromHTML*/
+      thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+
+      /* find menu container*/
+      const menuConatiner = document.querySelector(select.containerOf.menu);
+
+      /* add element to menu*/
+      menuConatiner.appendChild(thisProduct.element);
     }
   }
 
