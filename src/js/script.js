@@ -84,7 +84,7 @@
       const thisProduct = this;
   
       /* find the clickable trigger (the element that should react to clicking) */
-      const clickableTrigger = document.querySelector(select.menuProduct.clickable);
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       console.log('Clickable trigger: ',clickableTrigger);
 
       /* START: add event listener to clickable trigger on event click */
@@ -98,15 +98,15 @@
 
         /* if there is active product and it's not thisProduct.element, remove class active from it */
         activeProducts.forEach(activeProduct=>{
-          console.log('ACTIVE PRODUCT: ',activeProduct);
-          console.log('THIS PRODUCT: ',thisProduct.element);
+          console.log('ACTIVE PRODUCT: ', activeProduct);
+          console.log('THIS PRODUCT: ', thisProduct.element);
           if(activeProduct && activeProduct != thisProduct.element){
-            activeProduct.classList.remove('active'); 
+            activeProduct.classList.remove(classNames.menuProduct.wrapperActive); 
           }
           
         });
         /* toggle active class on thisProduct.element */
-        thisProduct.element.classList.toggle('active');
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
       });
   
     }
