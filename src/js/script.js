@@ -43,8 +43,8 @@
   const settings = {
     amountWidget: {
       defaultValue: 1,
-      defaultMin: 1,
-      defaultMax: 9,
+      defaultMin: 0,
+      defaultMax: 10,
     }
   };
 
@@ -196,7 +196,9 @@
 
     initAmountWidget(){
       const thisProduct = this;
+      // thisProduct.amountWidgetElem div w którym są inputy
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      
     }
   }
 
@@ -206,6 +208,7 @@
       console.log('AmountWidget',thisWidget);
       console.log('constructor arguments: ',element);
       thisWidget.getElements(element);
+      thisWidget.initAcitons(element);
       thisWidget.setValue(thisWidget.input.value);
     }
     getElements(element){
@@ -214,31 +217,40 @@
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-      
     }
 
     setValue(value){
       const thisWidget = this;
       const newValue = parseInt(value);
-
+      
       // TODO Add validation
-      thisWidget.input.value = thisWidget.value;
-      if(thisWidget.value !== newValue && !isNaN(newValue)){
-        thisWidget.value == newValue;
-        console.log('true');
-      }else{
-        console.log('false');
+      if(thisWidget.value !== newValue && !isNaN(newValue) && newValue>=settings.amountWidget.defaultMin && newValue<=settings.amountWidget.defaultMax){
+        thisWidget.value = newValue;
       }
+
+      thisWidget.input.value = thisWidget.value;
 
     }
 
     initAcitons(){
       const thisWidget = this;
-      thisWidget.input.addEventListener('change',thisWidget.setValue(thisWidget.input.value));
-      thisWidget.linkDecrease.addEventListener('click', thisWidget.setValue(thisWidget.input.value-1));
-      thisWidget.linkIncrease.addEventListener('click', thisWidget.setValue(thisWidget.input.value+1));
+      thisWidget.input.addEventListener('change',()=>{
+        thisWidget.setValue(thisWidget.input.value);
+      });
+      
+      thisWidget.linkDecrease.addEventListener('click', event=>{
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value-1);
+      });
+      
+      thisWidget.linkIncrease.addEventListener('click', event=>{
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value+1);
+      });
+      
 
 
+    }
   }
 
 
@@ -267,8 +279,8 @@
       console.log('templates:', templates);
       
       thisApp.initData();
+      
       thisApp.initMenu();
-    
     },
   };
 
