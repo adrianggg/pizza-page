@@ -188,9 +188,10 @@
         }
       }
 
+      // multiply price by amount
+      price *= thisProduct.amountWidget.value;
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
-
       
     }
 
@@ -198,7 +199,7 @@
       const thisProduct = this;
       // thisProduct.amountWidgetElem div w którym są inputy
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
-      
+      thisProduct.amountWidgetElem.addEventListener('updated',()=>{thisProduct.processOrder();});
     }
   }
 
@@ -217,6 +218,8 @@
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      
+      thisWidget.value = settings.amountWidget.defaultValue;
     }
 
     setValue(value){
@@ -226,10 +229,10 @@
       // TODO Add validation
       if(thisWidget.value !== newValue && !isNaN(newValue) && newValue>=settings.amountWidget.defaultMin && newValue<=settings.amountWidget.defaultMax){
         thisWidget.value = newValue;
+        thisWidget.announce();
       }
-
+      
       thisWidget.input.value = thisWidget.value;
-
     }
 
     initAcitons(){
@@ -246,10 +249,14 @@
       thisWidget.linkIncrease.addEventListener('click', event=>{
         event.preventDefault();
         thisWidget.setValue(thisWidget.value+1);
-      });
-      
+      });  
+    }
 
-
+    announce(){
+      const thisWidget = this;
+      console.log('active');
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
 
