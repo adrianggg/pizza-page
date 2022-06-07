@@ -370,11 +370,24 @@
       thisCart.dom.toggleTrigger.addEventListener('click',()=>{
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
-      thisCart.dom.productList.addEventListener('updated',function(){
+      thisCart.dom.productList.addEventListener('updated',()=>{
         thisCart.update();
         console.log('dziala');
         console.log(thisCart.totalPrice);
       });
+      thisCart.dom.productList.addEventListener('remove',e=>{
+        thisCart.remove(e.detail.cartProduct);
+      });
+
+      
+    }
+    remove(detail){
+      const thisCart = this;
+      console.log(detail);
+      console.log(detail.dom.wrapper);
+      thisCart.products.splice(thisCart.products.indexOf(detail),1);
+      detail.dom.wrapper.remove();
+      thisCart.update();
     }
 
     add(cartProduct){
@@ -408,10 +421,10 @@
 
       }
       console.log(totalNumber);
-      if(totalNumber>0){
-        thisCart.totalPrice = deliveryFee + subtotalPrice;
-      }else{
-        thisCart.totalPrice = subtotalPrice;
+      if (totalNumber != 0) {
+        thisCart.totalPrice = subtotalPrice + deliveryFee;
+      } else {
+        thisCart.totalPrice = 0;
       }
       console.log('subtotalPrice ',subtotalPrice);
       console.log('total number ', totalNumber);
@@ -432,7 +445,8 @@
       const thisCartProduct = this;
       console.log('nowe dane',menuProduct,element);
       thisCartProduct.getElements(element);
-      thisCartProduct.initAmountWidget(element);
+      thisCartProduct.initAmountWidget();
+      thisCartProduct.initAcitons();
       thisCartProduct.amount = menuProduct.amount;
       thisCartProduct.id = menuProduct.id;
       thisCartProduct.name = menuProduct.name;
@@ -451,12 +465,38 @@
       thisCartProduct.dom.remove = element.querySelector(select.cartProduct.remove);
     } 
 
-    initAmountWidget(){
+    initAmountWidget() {
       const thisCartProduct = this;
-      
       thisCartProduct.amountWidget = new AmountWidget(thisCartProduct.dom.amountWidget);
-      thisCartProduct.dom.amountWidget.addEventListener('updated',()=>{
-        thisCartProduct.dom.price.innerHTML = thisCartProduct.amountWidget.value * thisCartProduct.priceSingle;
+
+      thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
+
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
+        thisCartProduct.price = thisCartProduct.priceSingle * thisCartProduct.amount;
+        thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
+      });
+    }
+
+    remove(){
+      const thisCartProduct = this;
+      const event = new CustomEvent('remove',{
+        bubbles: true,
+        detail:{
+          cartProduct: thisCartProduct,
+        },
+      });
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
+    }
+    
+    initAcitons(){
+      const thisCartProduct = this;
+      thisCartProduct.dom.edit.addEventListener('click',e=>{  
+        e.preventDefault();
+      });
+      thisCartProduct.dom.remove.addEventListener('click',e=>{
+        e.preventDefault();
+        thisCartProduct.remove();
+        console.log('wywolanie');
       });
     }
 
