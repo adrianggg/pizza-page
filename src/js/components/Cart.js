@@ -9,7 +9,7 @@ class Cart{
     thisCart.products = [];
     thisCart.getElements(element);
     thisCart.initAcitons();
-    console.log('New Cart', thisCart);
+    // console.log('New Cart', thisCart);
   }
   getElements(element){
     const thisCart = this;
@@ -79,9 +79,10 @@ class Cart{
     thisCart.subtotalPrice = 0;
     for(const product of thisCart.products){
       console.log('product',product);
-      thisCart.totalNumber++;
+      console.log('product',product.amount);
+      thisCart.totalNumber += product.amount;
       thisCart.subtotalPrice += product.price;
-
+      
     }
     console.log(thisCart.totalNumber);
     if (thisCart.totalNumber != 0) {
