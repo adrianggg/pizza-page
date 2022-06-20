@@ -202,12 +202,13 @@
         }
     }
 ],
-    "orders":[],
+    "orders":[
+    ],
     
     "events": [
       {
         "id": 1,
-        "date": "2021-01-01",
+        "date": "2022-06-22",
         "hour": "12:30",
         "table": 1,
         "repeat": false,
@@ -256,5 +257,15 @@
         "starters": ["lemonWater"]
       }
     ],
-    "bookings": []
+    "bookings": [
+      {
+         "id": 1,
+         "date": "2022-06-19",
+         "hour": "16:00",
+         "table": 1,
+         "duration": 3,
+         "ppl": 2,
+         "starters": ["bread"]
+      }
+    ]
 }
