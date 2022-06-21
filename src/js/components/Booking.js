@@ -13,8 +13,8 @@ class Booking{
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.initAction();
-    thisBooking.sendBooking();
     thisBooking.updateDOM();
+    thisBooking.sendBooking();
   }
 
   getData(){
@@ -64,17 +64,16 @@ class Booking{
         // console.log(eventsCurrent);
         // console.log(eventsReapeat);
         thisBooking.parseData(booking,eventsCurrent,eventsReapeat);
+        thisBooking.updateDOM();
       });
       
   }
     
   parseData(booking,eventsCurrent,eventsReapeat){
     const thisBooking = this;
-   
-    
-
     for(let item of eventsCurrent){
       thisBooking.makeBooked(item.date,item.hour,item.duration,item.table);
+      console.log('item', item.date);
     }
     for(let item of booking){
       thisBooking.makeBooked(item.date,item.hour,item.duration,item.table);
@@ -110,7 +109,9 @@ class Booking{
       }
       thisBooking.booked[date][hourBlock].push(table);
     }
-    console.log(thisBooking.booked);
+    // console.log(thisBooking.booked);
+    // thisBooking.updateDOM();
+    thisBooking.updateDOM();
   }
   updateDOM(){
     const thisBooking =  this;
@@ -132,11 +133,11 @@ class Booking{
       if(!isNaN(tableId)){
         tableId = parseInt(tableId);
       }
-
+ 
       if(
         !allAvailable
         &&
-        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) > -1
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId) 
       ){
         table.classList.add(classNames.booking.tableBooked);
       }else{
@@ -212,7 +213,7 @@ class Booking{
         phone: thisBooking.dom.inputPhone.value,
         address: thisBooking.dom.inputAddress.value
       };
-      
+      console.log(bookingLoad);
       thisBooking.dom.checkboxStarters.forEach(element => {
         // console.log(element);
         if(element.checked){
@@ -228,14 +229,16 @@ class Booking{
         body: JSON.stringify(bookingLoad),
       };
       fetch(url, options);
-      thisBooking.makeBooked(thisBooking.datePicker,bookingLoad['hour'],bookingLoad['duration'],bookingLoad['table']);
+      thisBooking.makeBooked(thisBooking.datePicker.value,bookingLoad['hour'],bookingLoad['duration'],bookingLoad['table']);
+      thisBooking.clearTables();
+      // thisBooking.parseData();
+      
       console.log(
         thisBooking.datePicker,
         bookingLoad['hour'],
         bookingLoad['duration'],
         bookingLoad['table']
       );
-      thisBooking.clearTables();
       console.log(bookingLoad);
     }); 
   }
