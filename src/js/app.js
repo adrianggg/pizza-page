@@ -11,7 +11,7 @@ const app = {
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
 
     const idFromHash = window.location.hash.replace('#/','');
-    let pageMatchingHash = thisApp.pages[0].id;
+    let pageMatchingHash = thisApp.pages[2].id;
     for(let page of thisApp.pages){
       if(page.id == idFromHash){
         pageMatchingHash = page.id;
