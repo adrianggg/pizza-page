@@ -37,7 +37,6 @@ const app = {
 
   activatePage: function(pageId){
     const thisApp = this;
-
     // add class 'active' to matching pages, remove from non-matching 
     for(let page of thisApp.pages){
       page.classList.toggle(classNames.pages.active, page.id==pageId);

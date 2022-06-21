@@ -1,0 +1,157 @@
+#home {
+  width: 60%;
+  display: flex;
+  background-color: white;
+  margin: 0 auto;
+}
+
+.home_gallery {
+  width: 100%;
+  height: 65vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 100px;    
+}
+
+.photo {
+  width: 31.7vh;
+  height: 31.7vh;
+  position: relative;
+  background-color: black;
+
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.home_icons {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: $transition;
+
+  > i {
+    transition: $transition;
+    color: white;
+    margin: 5px;
+    font-size: 25px;
+    display: none;
+
+    &:hover {
+      color: $color-main;
+    }
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.548);
+
+    > i {
+      display: block;
+    }
+  } 
+}
+
+.carousel-cell {
+  width: 100%; /* full width */
+  height: 200px; /* height of carousel */
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.flickity-button {
+  display: none;
+}
+
+.carousel-text {
+  width: 60%;
+  margin-left: 25px;
+
+  > p {
+    font-size: 12px;
+  }
+}  
+
+.main-carousel {
+  margin: 50px auto;
+  width: 100%;
+}
+
+.home_nav {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  color: white;
+  margin: 50px 0 ;
+  padding: 40px 0;
+}
+
+.home_hours {
+  width: 100%;
+  height: 48%;
+  background-color: $color-main;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+  > h2 , >h4 {
+    text-align: center;
+    padding: 0px;
+    margin: 0;
+  }
+
+  > h2 {
+    font-family: $font-header;
+    font-size: 24px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+}
+
+.home_nav-links {
+  width: 49%;
+  height: 48%;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  > a {
+    font-family: $font-header;
+    font-size: 24px;
+    text-transform: uppercase;
+    transition: $transition;
+  }
+
+  &:hover > a {
+    margin-bottom: 40px;
+  }
+}
+
+.home_order {
+  background: url(../../images/assets/pizza-1.jpg) center/cover no-repeat;
+}
+
+.home_book {
+  background: url(../../images/assets/pizza-2.jpg) center/cover no-repeat;
+}
+
+.instagram-link {
+  color: $color-main;
+  display: block;
+  padding: 30px 0 60px 0;
+}
