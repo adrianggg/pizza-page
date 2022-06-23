@@ -9,7 +9,7 @@ class Cart{
     thisCart.products = [];
     thisCart.getElements(element);
     thisCart.initAcitons();
-    // console.log('New Cart', thisCart);
+    // console.log('New Carrt', thisCart);
   }
   getElements(element){
     const thisCart = this;

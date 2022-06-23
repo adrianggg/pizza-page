@@ -98,7 +98,7 @@ export const settings = {
     defaultValue: 1,
     defaultMin: 1,
     defaultMax: 10,
-  }, // CODE CHANGED
+  }, // CODE CHANGEDdd
   // CODE ADDED START
   cart: {
     defaultDeliveryFee: 20,
@@ -115,7 +115,7 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: {
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     products: 'products',
     orders: 'orders',
     product: 'product',
